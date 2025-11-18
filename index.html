@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Application Details</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: #f4f5f7;
+      color: #111827;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 24px 32px 32px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: 22px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .section-title {
+      margin: 24px 0 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 4px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px 26px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field.span-2 {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    textarea,
+    select {
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+      font-size: 14px;
+      outline: none;
+      background: #ffffff;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.16);
+      background: #f9fbff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .radio-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .radio-group label {
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    /* ---------- TABLE ---------- */
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto; /* makes it scroll horizontally on phone */
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+
+    table {
+      width: 100%;
+      min-width: 700px;  /* forces scroll on small screens */
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      border: 1px solid #e5e7eb;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    th {
+      background: #f9fafb;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4b5563;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    .table-input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      padding: 3px 4px;
+      background: transparent;
+    }
+
+    .table-input:focus {
+      background: #f9fbff;
+      box-shadow: inset 0 0 0 1px #2563eb;
+      border-radius: 4px;
+    }
+
+    /* ---------- BUTTON ---------- */
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      background: #2563eb;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 10px rgba(37, 99, 235, 0.4);
+      transition: background 0.15s, transform 0.08s, box-shadow 0.08s;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+    }
+
+    /* ---------- ADVISORY FOOTER ---------- */
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 18px;
+      font-size: 13px;
+    }
+
+    .footer-column {
+      flex: 1 1 260px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      padding: 10px 12px 12px;
+    }
+
+    .footer-column h3 {
+      margin: 0 0 6px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #374151;
+    }
+
+    .footer-table td {
+      padding: 4px 4px;
+      vertical-align: middle;
+    }
+
+    .label {
+      width: 65%;
+    }
+
+    .mini-select {
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+
+    /* ------------------- MOBILE RESPONSIVE BREAKPOINTS ------------------- */
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 10px;
+        padding: 20px 16px 28px;
+      }
+
+      h1 {
+        font-size: 18px;
+        letter-spacing: 0.05em;
+      }
+
+      .grid {
+        grid-template-columns: 1fr; /* FULL width on mobile */
+        gap: 10px;
+      }
+
+      .field.span-2 {
+        grid-column: span 1; /* no 2-column spans on mobile */
+      }
+
+      input,
+      textarea,
+      select {
+        font-size: 15px;
+        padding: 10px 12px;
+      }
+
+      button {
+        width: 100%; /* easy touch */
+        justify-content: center;
+        padding: 12px;
+        font-size: 16px;
+      }
+
+      .footer-grid {
+        flex-direction: column;
+      }
+
+      .footer-column {
+        width: 100%;
+      }
+    }
+
+    /* SUPER SMALL PHONES (iPhone SE, older phones) */
+    @media (max-width: 400px) {
+      body {
+        font-size: 14px;
+      }
+
+      h1 {
+        font-size: 17px;
+      }
+
+      input,
+      textarea,
+      select {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Application Details</h1>
+
+    <div class="grid">
+      <div class="field">
+        <label>Date</label>
+        <input type="date" />
+      </div>
+
+      <div class="field">
+        <label>Crop Type</label>
+        <input type="text" />
+      </div>
+
+      <div class="field">
+        <label>Client Name</label>
+        <input type="text" />
+      </div>
+
+      <div class="field">
+        <label>Pest Type</label>
+        <input type="text" />
+      </div>
+
+      <div class="field">
+        <label>Client Contact</label>
+        <input type="text" />
+      </div>
+
+      <div class="field">
+        <label>Pilot</label>
+        <input type="text" />
+      </div>
+
+      <div class="field span-2">
+        <label>Client Address</label>
+        <input type="text" />
+      </div>
+
+      <div class="field">
+        <label>Area Affected (Ha)</label>
+        <input type="number" step="0.01" />
+      </div>
+
+      <div class="field">
+        <label>Aircraft</label>
+        <input type="text" />
+      </div>
+
+      <div class="field">
+        <label>Strip</label>
+        <input type="text" />
+      </div>
+
+      <div class="field">
+        <label>Map Supplied</label>
+        <div class="radio-group">
+          <label><input type="radio" name="map" value="yes" checked /> Yes</label>
+          <label><input type="radio" name="map" value="no" /> No</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Loads / Chemical Details</div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Load</th>
+            <th>Load Size</th>
+            <th>Chemical / Pesticide Recommended</th>
+            <th>Dosage Rate</th>
+            <th>Mix Quantity</th>
+          </tr>
+        </thead>
+        <tbody id="loadsBody"></tbody>
+      </table>
+    </div>
+
+    <button id="addRowBtn" style="margin-top: 12px;">+ Add Row</button>
+
+    <div class="section-title">Advisory Information</div>
+
+    <div class="footer-grid">
+      <div class="footer-column">
+        <h3>Verbally discussed with client</h3>
+        <table class="footer-table">
+          <tr>
+            <td class="label">Infestation level</td>
+            <td>
+              <select class="mini-select">
+                <option></option>
+                <option>YES</option>
+                <option>NO</option>
+                <option>N/A</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="label">Withholding period</td>
+            <td>
+              <select class="mini-select">
+                <option></option>
+                <option>YES</option>
+                <option>NO</option>
+                <option>N/A</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="label">Safe re-entry time</td>
+            <td>
+              <select class="mini-select">
+                <option></option>
+                <option>YES</option>
+                <option>NO</option>
+                <option>N/A</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="label">Notification</td>
+            <td>
+              <select class="mini-select">
+                <option></option>
+                <option>YES</option>
+                <option>NO</option>
+                <option>N/A</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="label">Additional precautions</td>
+            <td>
+              <select class="mini-select">
+                <option></option>
+                <option>YES</option>
+                <option>NO</option>
+                <option>N/A</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="footer-column">
+        <h3>Comments</h3>
+        <textarea></textarea>
+      </div>
+
+      <div class="footer-column">
+        <h3>Advisor / Client Details</h3>
+        <div class="field">
+          <label>Client/Advisor's Company</label>
+          <input type="text" />
+        </div>
+        <div class="field">
+          <label>Client/Advisor's Name</label>
+          <input type="text" />
+        </div>
+        <div class="field">
+          <label>Signature</label>
+          <input type="text" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function createLoadRow(tbody) {
+      const row = document.createElement("tr");
+      ["load", "size", "chem", "dose", "mix"].forEach(() => {
+        const td = document.createElement("td");
+        const input = document.createElement("input");
+        input.className = "table-input";
+        td.appendChild(input);
+        row.appendChild(td);
+      });
+      tbody.appendChild(row);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const tbody = document.getElementById("loadsBody");
+      const addRowBtn = document.getElementById("addRowBtn");
+
+      for (let i = 0; i < 5; i++) createLoadRow(tbody);
+
+      addRowBtn.addEventListener("click", () => {
+        createLoadRow(tbody);
+      });
+    });
+  </script>
+
+</body>
+</html>
