@@ -1,494 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Application Details</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: #f4f5f7;
-      color: #111827;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 24px auto;
-      padding: 24px 32px 32px;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    h1 {
-      margin: 0 0 20px;
-      font-size: 22px;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .section-title {
-      margin: 24px 0 10px;
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 4px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px 26px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .field.span-2 {
-      grid-column: span 2;
-    }
-
-    label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #374151;
-    }
-
-    input[type="text"],
-    input[type="date"],
-    input[type="number"],
-    textarea,
-    select {
-      border-radius: 8px;
-      border: 1px solid #cbd5e1;
-      padding: 7px 10px;
-      font-size: 14px;
-      outline: none;
-      background: #ffffff;
-      transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.16);
-      background: #f9fbff;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 90px;
-    }
-
-    .radio-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
-    }
-
-    .radio-group label {
-      font-weight: 400;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-    }
-
-    /* ---------- TABLE ---------- */
-
-    .table-wrapper {
-      width: 100%;
-      overflow-x: auto; /* makes it scroll horizontally on phone */
-      margin-top: 10px;
-      border-radius: 8px;
-      border: 1px solid #e5e7eb;
-    }
-
-    table {
-      width: 100%;
-      min-width: 700px;  /* forces scroll on small screens */
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    th,
-    td {
-      border: 1px solid #e5e7eb;
-      padding: 6px 8px;
-      text-align: left;
-    }
-
-    th {
-      background: #f9fafb;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #4b5563;
-    }
-
-    tbody tr:nth-child(even) {
-      background: #f9fafb;
-    }
-
-    .table-input {
-      width: 100%;
-      border: none;
-      outline: none;
-      font-size: 13px;
-      padding: 3px 4px;
-      background: transparent;
-    }
-
-    .table-input:focus {
-      background: #f9fbff;
-      box-shadow: inset 0 0 0 1px #2563eb;
-      border-radius: 4px;
-    }
-
-    /* ---------- BUTTON ---------- */
-
-    button {
-      border: none;
-      border-radius: 999px;
-      padding: 10px 22px;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      background: #2563eb;
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 3px 10px rgba(37, 99, 235, 0.4);
-      transition: background 0.15s, transform 0.08s, box-shadow 0.08s;
-    }
-
-    button:hover {
-      background: #1d4ed8;
-    }
-
-    button:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
-    }
-
-    /* ---------- ADVISORY FOOTER ---------- */
-
-    .footer-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 18px;
-      font-size: 13px;
-    }
-
-    .footer-column {
-      flex: 1 1 260px;
-      border-radius: 10px;
-      border: 1px solid #e5e7eb;
-      background: #f9fafb;
-      padding: 10px 12px 12px;
-    }
-
-    .footer-column h3 {
-      margin: 0 0 6px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #374151;
-    }
-
-    .footer-table td {
-      padding: 4px 4px;
-      vertical-align: middle;
-    }
-
-    .label {
-      width: 65%;
-    }
-
-    .mini-select {
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-    }
-
-    /* ------------------- MOBILE RESPONSIVE BREAKPOINTS ------------------- */
-
-    @media (max-width: 768px) {
-      .container {
-        margin: 10px;
-        padding: 20px 16px 28px;
-      }
-
-      h1 {
-        font-size: 18px;
-        letter-spacing: 0.05em;
-      }
-
-      .grid {
-        grid-template-columns: 1fr; /* FULL width on mobile */
-        gap: 10px;
-      }
-
-      .field.span-2 {
-        grid-column: span 1; /* no 2-column spans on mobile */
-      }
-
-      input,
-      textarea,
-      select {
-        font-size: 15px;
-        padding: 10px 12px;
-      }
-
-      button {
-        width: 100%; /* easy touch */
-        justify-content: center;
-        padding: 12px;
-        font-size: 16px;
-      }
-
-      .footer-grid {
-        flex-direction: column;
-      }
-
-      .footer-column {
-        width: 100%;
-      }
-    }
-
-    /* SUPER SMALL PHONES (iPhone SE, older phones) */
-    @media (max-width: 400px) {
-      body {
-        font-size: 14px;
-      }
-
-      h1 {
-        font-size: 17px;
-      }
-
-      input,
-      textarea,
-      select {
-        font-size: 14px;
-      }
-
-      button {
-        font-size: 15px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Application Details</title>
+<style>
+/* --- YOUR EXISTING STYLES (CONDENSED FOR SPACE) --- */
+*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#f4f5f7}
+.container{max-width:1100px;margin:24px auto;padding:24px 32px;background:#fff;border-radius:12px;box-shadow:0 12px 30px rgba(15,23,42,.12)}
+h1{text-align:center;margin:0 0 20px;text-transform:uppercase;letter-spacing:.12em}
+.field{display:flex;flex-direction:column;margin-bottom:12px}
+label{font-size:13px;font-weight:600;color:#374151;margin-bottom:4px}
+input,textarea,select{padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;width:100%}
+input:focus,textarea:focus,select:focus{border-color:#2563eb;box-shadow:0 0 0 2px rgba(37,99,235,.16)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.table-wrapper{overflow-x:auto;border:1px solid #e5e7eb;border-radius:8px;margin-top:10px}
+table{min-width:700px;width:100%;border-collapse:collapse}
+th,td{border:1px solid #e5e7eb;padding:6px 8px;font-size:13px}
+.table-input{width:100%;border:none}
+button{padding:10px 22px;font-size:14px;border:none;border-radius:50px;color:white;cursor:pointer;margin:6px 4px}
+#saveTxt{background:#10b981}
+#saveCsv{background:#3b82f6}
+#saveJson{background:#7c3aed}
+#savePdf{background:#ef4444}
+#addRowBtn{background:#2563eb;margin-top:14px}
+.footer-grid{display:flex;flex-wrap:wrap;gap:20px;margin-top:18px}
+.footer-column{flex:1 1 260px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px}
+@media(max-width:768px){
+.container{margin:10px;padding:16px}
+button{width:100%}
+.grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Application Details</h1>
 
-    <div class="grid">
-      <div class="field">
-        <label>Date</label>
-        <input type="date" />
-      </div>
+<div class="container">
+<h1>Application Details</h1>
 
-      <div class="field">
-        <label>Crop Type</label>
-        <input type="text" />
-      </div>
-
-      <div class="field">
-        <label>Client Name</label>
-        <input type="text" />
-      </div>
-
-      <div class="field">
-        <label>Pest Type</label>
-        <input type="text" />
-      </div>
-
-      <div class="field">
-        <label>Client Contact</label>
-        <input type="text" />
-      </div>
-
-      <div class="field">
-        <label>Pilot</label>
-        <input type="text" />
-      </div>
-
-      <div class="field span-2">
-        <label>Client Address</label>
-        <input type="text" />
-      </div>
-
-      <div class="field">
-        <label>Area Affected (Ha)</label>
-        <input type="number" step="0.01" />
-      </div>
-
-      <div class="field">
-        <label>Aircraft</label>
-        <input type="text" />
-      </div>
-
-      <div class="field">
-        <label>Strip</label>
-        <input type="text" />
-      </div>
-
-      <div class="field">
-        <label>Map Supplied</label>
-        <div class="radio-group">
-          <label><input type="radio" name="map" value="yes" checked /> Yes</label>
-          <label><input type="radio" name="map" value="no" /> No</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-title">Loads / Chemical Details</div>
-
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Load</th>
-            <th>Load Size</th>
-            <th>Chemical / Pesticide Recommended</th>
-            <th>Dosage Rate</th>
-            <th>Mix Quantity</th>
-          </tr>
-        </thead>
-        <tbody id="loadsBody"></tbody>
-      </table>
-    </div>
-
-    <button id="addRowBtn" style="margin-top: 12px;">+ Add Row</button>
-
-    <div class="section-title">Advisory Information</div>
-
-    <div class="footer-grid">
-      <div class="footer-column">
-        <h3>Verbally discussed with client</h3>
-        <table class="footer-table">
-          <tr>
-            <td class="label">Infestation level</td>
-            <td>
-              <select class="mini-select">
-                <option></option>
-                <option>YES</option>
-                <option>NO</option>
-                <option>N/A</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="label">Withholding period</td>
-            <td>
-              <select class="mini-select">
-                <option></option>
-                <option>YES</option>
-                <option>NO</option>
-                <option>N/A</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="label">Safe re-entry time</td>
-            <td>
-              <select class="mini-select">
-                <option></option>
-                <option>YES</option>
-                <option>NO</option>
-                <option>N/A</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="label">Notification</td>
-            <td>
-              <select class="mini-select">
-                <option></option>
-                <option>YES</option>
-                <option>NO</option>
-                <option>N/A</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td class="label">Additional precautions</td>
-            <td>
-              <select class="mini-select">
-                <option></option>
-                <option>YES</option>
-                <option>NO</option>
-                <option>N/A</option>
-              </select>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="footer-column">
-        <h3>Comments</h3>
-        <textarea></textarea>
-      </div>
-
-      <div class="footer-column">
-        <h3>Advisor / Client Details</h3>
-        <div class="field">
-          <label>Client/Advisor's Company</label>
-          <input type="text" />
-        </div>
-        <div class="field">
-          <label>Client/Advisor's Name</label>
-          <input type="text" />
-        </div>
-        <div class="field">
-          <label>Signature</label>
-          <input type="text" />
-        </div>
-      </div>
-    </div>
+<div class="grid">
+  <div class="field"><label>Date</label><input type="date"></div>
+  <div class="field"><label>Crop Type</label><input type="text"></div>
+  <div class="field"><label>Client Name</label><input type="text"></div>
+  <div class="field"><label>Pest Type</label><input type="text"></div>
+  <div class="field"><label>Client Contact</label><input type="text"></div>
+  <div class="field"><label>Pilot</label><input type="text"></div>
+  <div class="field"><label>Client Address</label><input type="text"></div>
+  <div class="field"><label>Area Affected (Ha)</label><input type="number"></div>
+  <div class="field"><label>Aircraft</label><input type="text"></div>
+  <div class="field"><label>Strip</label><input type="text"></div>
+  <div class="field">
+    <label>Map Supplied</label>
+    <select><option>YES</option><option>NO</option></select>
   </div>
+</div>
 
-  <script>
-    function createLoadRow(tbody) {
-      const row = document.createElement("tr");
-      ["load", "size", "chem", "dose", "mix"].forEach(() => {
-        const td = document.createElement("td");
-        const input = document.createElement("input");
-        input.className = "table-input";
-        td.appendChild(input);
-        row.appendChild(td);
-      });
-      tbody.appendChild(row);
-    }
+<h3>Loads</h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Load</th><th>Size</th><th>Chemical</th><th>Dosage</th><th>Mix Qty</th>
+</tr>
+</thead>
+<tbody id="loadsBody"></tbody>
+</table>
+</div>
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const tbody = document.getElementById("loadsBody");
-      const addRowBtn = document.getElementById("addRowBtn");
+<button id="addRowBtn">+ Add Row</button>
 
-      for (let i = 0; i < 5; i++) createLoadRow(tbody);
+<h3>Advisory Information</h3>
+<div class="footer-grid">
+<div class="footer-column">
+  <label>Infestation level</label><select><option></option><option>YES</option><option>NO</option></select>
+  <label>Withholding period</label><select><option></option><option>YES</option><option>NO</option></select>
+  <label>Safe re-entry time</label><select><option></option><option>YES</option><option>NO</option></select>
+  <label>Notification</label><select><option></option><option>YES</option><option>NO</option></select>
+  <label>Additional precautions</label><select><option></option><option>YES</option><option>NO</option></select>
+</div>
 
-      addRowBtn.addEventListener("click", () => {
-        createLoadRow(tbody);
-      });
+<div class="footer-column">
+  <label>Comments</label>
+  <textarea></textarea>
+</div>
+
+<div class="footer-column">
+  <label>Client/Advisor Company</label><input type="text">
+  <label>Client/Advisor Name</label><input type="text">
+  <label>Signature</label><input type="text">
+</div>
+</div>
+
+<h3>Save Options</h3>
+<button id="saveTxt">Save TXT</button>
+<button id="saveCsv">Save CSV</button>
+<button id="saveJson">Save JSON</button>
+<button id="savePdf">Save PDF</button>
+
+</div>
+
+<script>
+/* ------------------ TABLE ROWS ------------------ */
+function createLoadRow(){
+  const row=document.createElement("tr");
+  ["load","size","chem","dose","mix"].forEach(()=> {
+    let td=document.createElement("td");
+    let input=document.createElement("input");
+    input.className="table-input";
+    td.appendChild(input);
+    row.appendChild(td);
+  });
+  document.getElementById("loadsBody").appendChild(row);
+}
+for(let i=0;i<5;i++) createLoadRow();
+document.getElementById("addRowBtn").onclick=()=>createLoadRow();
+
+/* ------------------ COLLECT FORM DATA ------------------ */
+function collectData(){
+  let data = {};
+
+  // All text inputs, dates, numbers
+  document.querySelectorAll("input, textarea, select").forEach((el,i)=>{
+    data["field_"+i] = el.value;
+  });
+
+  // Load table
+  data.loads = [];
+  document.querySelectorAll("#loadsBody tr").forEach(row=>{
+    let r=[];
+    row.querySelectorAll("input").forEach(c=>r.push(c.value));
+    data.loads.push(r);
+  });
+
+  return data;
+}
+
+/* ------------------ DOWNLOAD CREATE ------------------ */
+function download(filename, text){
+  const blob = new Blob([text], {type:"text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}
+
+/* ------------------ SAVE AS TXT ------------------ */
+document.getElementById("saveTxt").onclick=()=>{
+  const d=collectData();
+  let out="APPLICATION DETAILS\n\n";
+
+  Object.keys(d).forEach(k=>{
+    if(k!=="loads") out+=`${k}: ${d[k]}\n`;
+  });
+
+  out+="\nLOAD TABLE:\n";
+  d.loads.forEach((r,i)=> out+=`Row ${i+1}: ${r.join(" | ")}\n`);
+
+  download("application.txt",out);
+};
+
+/* ------------------ SAVE AS CSV ------------------ */
+document.getElementById("saveCsv").onclick=()=>{
+  const d=collectData();
+  let csv="Field,Value\n";
+
+  Object.keys(d).forEach(k=>{
+    if(k!=="loads") csv+=`${k},${d[k]}\n`;
+  });
+
+  csv+="\nLoad,Size,Chemical,Dosage,Mix\n";
+  d.loads.forEach((r)=> csv+=`${r.join(",")}\n`);
+
+  download("application.csv",csv);
+};
+
+/* ------------------ SAVE AS JSON ------------------ */
+document.getElementById("saveJson").onclick=()=>{
+  const d=collectData();
+  download("application.json",JSON.stringify(d,null,2));
+};
+
+/* ------------------ SAVE AS PDF (Simple text) ------------------ */
+document.getElementById("savePdf").onclick=()=>{
+  const d=collectData();
+  let text="APPLICATION DETAILS\n\n";
+
+  Object.keys(d).forEach(k=>{
+    if(k!=="loads") text+=`${k}: ${d[k]}\n`;
+  });
+
+  text+="\nLOAD TABLE:\n";
+  d.loads.forEach((r,i)=> text+=`Row ${i+1}: ${r.join(" | ")}\n`);
+
+  // Use simple Blob PDF
+  const blob=new Blob([text],{type:"application/pdf"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="application.pdf";
+  a.click();
+};
+
+/* ------------------ AUTO SAVE EVERY 2 SECONDS ------------------ */
+setInterval(()=>{
+  const d=collectData();
+  localStorage.setItem("autosave_app_form", JSON.stringify(d));
+},2000);
+
+/* ------------------ AUTO LOAD ON STARTUP ------------------ */
+window.onload=()=>{
+  const saved=localStorage.getItem("autosave_app_form");
+  if(!saved) return;
+
+  const d=JSON.parse(saved);
+
+  let i=0;
+  document.querySelectorAll("input, textarea, select").forEach(el=>{
+    if(d["field_"+i]!==undefined) el.value=d["field_"+i];
+    i++;
+  });
+
+  // Load table
+  document.getElementById("loadsBody").innerHTML="";
+  d.loads.forEach(row=>{
+    createLoadRow();
+  });
+
+  // Insert load values
+  let rowIndex=0;
+  document.querySelectorAll("#loadsBody tr").forEach(tr=>{
+    let cellIndex=0;
+    tr.querySelectorAll("input").forEach(input=>{
+      input.value=d.loads[rowIndex][cellIndex];
+      cellIndex++;
     });
-  </script>
+    rowIndex++;
+  });
+};
+</script>
 
 </body>
 </html>
